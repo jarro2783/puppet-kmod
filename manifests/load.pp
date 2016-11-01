@@ -69,6 +69,13 @@ define kmod::load(
         content => template('kmod/redhat.modprobe.erb'),
       }
     }
+    'Archlinux': {
+      file { "/etc/modules-load.d/${name}.modules":
+        ensure  => $ensure,
+        mode    => '0644',
+        content => "${name}",
+      }
+    }
     'Suse': {
       $kernelfile = $file ? {
         '/etc/modules' => '/etc/sysconfig/kernel',
